@@ -15,6 +15,16 @@ const BixolonPrinter = NativeModules.BixolonPrinter  ? NativeModules.BixolonPrin
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return BixolonPrinter.multiply(a, b);
-}
+    export function findDevices() {
+      return BixolonPrinter.findDevices();
+    }
+    export function conectar(address: String){
+      return BixolonPrinter.conectar(address);
+    }
+
+    export function configure(length: Number, width: Number){
+      return BixolonPrinter.configure(length,width);
+    }
+    export function printZpl(zpl: String){
+      return BixolonPrinter.printZpl(zpl);
+    }

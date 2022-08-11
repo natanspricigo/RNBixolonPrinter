@@ -147,5 +147,9 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "@react-native-community/cli-debugger-ui": "^8.0.0",
+    "react-native-config": "^1.4.6"
   }
 }
