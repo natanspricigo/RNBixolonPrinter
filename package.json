@@ -1,6 +1,6 @@
 {
   "name": "react-native-bixolon-printer",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "test",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -33,7 +33,9 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "Bixolon",
+    "printers"
   ],
   "repository": "https://github.com/natanspricigo/react-native-bixolon-printer",
   "author": "Natan <natanspricigo@gmail.com> (https://github.com/natanspricigo)",
