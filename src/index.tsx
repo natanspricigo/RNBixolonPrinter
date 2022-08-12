@@ -17,12 +17,6 @@ const BixolonPrinter = NativeModules.BixolonPrinter
       }
     );
 
-type BluetoothDevice = {
-  macAddress: string;
-  portName: string;
-  moduleName: String;
-};
-
 export async function findDevices() {
   return BixolonPrinter.findDevices();
 }
