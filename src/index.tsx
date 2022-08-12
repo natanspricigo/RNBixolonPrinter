@@ -6,7 +6,9 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo managed workflow\n';
 
-const BixolonPrinter = NativeModules.BixolonPrinter  ? NativeModules.BixolonPrinter  : new Proxy(
+const BixolonPrinter = NativeModules.BixolonPrinter
+  ? NativeModules.BixolonPrinter
+  : new Proxy(
       {},
       {
         get() {
@@ -15,22 +17,22 @@ const BixolonPrinter = NativeModules.BixolonPrinter  ? NativeModules.BixolonPrin
       }
     );
 
-    type BluetoothDevice = {
-      macAddress: string;
-      portName: string;
-      moduleName : String;
-    };
+type BluetoothDevice = {
+  macAddress: string;
+  portName: string;
+  moduleName: String;
+};
 
-    export async function findDevices() {
-      return BixolonPrinter.findDevices();
-    }
-    export async function conectar(address: String){
-      return BixolonPrinter.conectar(address);
-    }
+export async function findDevices() {
+  return BixolonPrinter.findDevices();
+}
+export async function conectar(address: String) {
+  return BixolonPrinter.conectar(address);
+}
 
-    export async function configure(length: Number, width: Number){
-      return BixolonPrinter.configure(length,width);
-    }
-    export async function printZpl(zpl: String){
-      return BixolonPrinter.printZpl(zpl);
-    }
+export async function configure(length: Number, width: Number) {
+  return BixolonPrinter.configure(length, width);
+}
+export async function printZpl(zpl: String) {
+  return BixolonPrinter.printZpl(zpl);
+}

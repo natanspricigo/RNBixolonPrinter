@@ -1,64 +1,67 @@
 import * as React from 'react';
 
-import { 
-  StyleSheet, 
-  View, 
-  Text, 
-  Button, 
-  TouchableOpacity, 
-  PermissionsAndroid 
+import {
+  StyleSheet,
+  View,
+  Text,
+  Button,
+  TouchableOpacity,
+  PermissionsAndroid,
 } from 'react-native';
 
 import {
-  findDevices, 
-  conectar, 
-  configure, 
-  printZpl
+  findDevices,
+  conectar,
+  configure,
+  printZpl,
 } from 'react-native-bixolon-printer';
 
 type BluetoothDevice = {
   macAddress: string;
   portName: string;
-  moduleName : String;
+  moduleName: String;
 };
 
 export default function App() {
   const [result, setResult] = React.useState<BluetoothDevice[]>([]);
-  const [err, setErr] = React.useState<String>("");
+  const [err, setErr] = React.useState<String>('');
+
+  const requestPermission = async () => {
+    try {
+      PermissionsAndroid.requestMultiple([
+        'android.permission.BLUETOOTH_SCAN',
+        'android.permission.BLUETOOTH_CONNECT',
+        'android.permission.BLUETOOTH_ADVERTISE',
+        'android.permission.ACCESS_COARSE_LOCATION',
+      ]);
+      find();
+    } catch (err) {
+      console.warn(err);
+    }
+  };
 
   React.useEffect(() => {
     setTimeout(() => {
       requestPermission();
     }, 1000);
   }, []);
-  
-  const requestPermission = async () => {
-    try {
-      PermissionsAndroid.requestMultiple(['android.permission.BLUETOOTH_SCAN', 
-      'android.permission.BLUETOOTH_CONNECT',
-      'android.permission.BLUETOOTH_ADVERTISE',
-      'android.permission.ACCESS_COARSE_LOCATION']);
-      find();
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-   
+
   async function find() {
-    try{
+    try {
       let dispositivos = await findDevices();
       setResult(dispositivos);
-    } catch(err:any){
+    } catch (err: any) {
       setErr(err);
     }
   }
-  
+
   return (
     <View style={styles.container}>
-      <View style={{display: 'flex', flexDirection: 'row'}}>
+      <View style={{ display: 'flex', flexDirection: 'row' }}>
         <Button title='buscar' onPress={async () => {
           await find();
-        }}>Buscar...</Button>
+        }}>Buscar</Button>
+
         <Button title='imprimir' onPress={async () => {
           printZpl(`^XA
           ^CI28
@@ -121,26 +124,26 @@ export default function App() {
           ^XZ`)
         }}>Imprimir</Button>
       </View>
-        <View>
-          <Text style={{fontSize:20, paddingBottom:3, paddingTop: 5}}>Lista de dispositivos Pareados no telefone</Text>
-        </View>
-        <View>
-          <Text>Clique para conectar</Text>
-          <Text>{err}</Text>
-        </View>
-        <View>
-          {result.map((e:any,i:any)=>{
-            return <View style={{marginTop:10}}>
-              <TouchableOpacity key={i} onPress={async ()=>{
-                await conectar(e.macAddress);
-                await configure(1850,840);
-              }}>
-                <Text>{'-'} {e.portName} - {e.macAddress}</Text>
-              </TouchableOpacity>
-            </View>
-          })}
-        </View>
+      <View>
+        <Text style={{ fontSize: 20, paddingBottom: 3, paddingTop: 5 }}>Lista de dispositivos Pareados no telefone</Text>
       </View>
+      <View>
+        <Text>Clique para conectar</Text>
+        <Text>{err}</Text>
+      </View>
+      <View>
+        {result.map((e: any, i: any) => {
+          return <View style={{ marginTop: 10 }}>
+            <TouchableOpacity key={i} onPress={async () => {
+              await conectar(e.macAddress);
+              await configure(1850, 840);
+            }}>
+              <Text>{'-'} {e.portName} - {e.macAddress}</Text>
+            </TouchableOpacity>
+          </View>
+        })}
+      </View>
+    </View>
   );
 }
 
