@@ -15,16 +15,22 @@ const BixolonPrinter = NativeModules.BixolonPrinter  ? NativeModules.BixolonPrin
       }
     );
 
-    export function findDevices() {
+    type BluetoothDevice = {
+      macAddress: string;
+      portName: string;
+      moduleName : String;
+    };
+
+    export async function findDevices() {
       return BixolonPrinter.findDevices();
     }
-    export function conectar(address: String){
+    export async function conectar(address: String){
       return BixolonPrinter.conectar(address);
     }
 
-    export function configure(length: Number, width: Number){
+    export async function configure(length: Number, width: Number){
       return BixolonPrinter.configure(length,width);
     }
-    export function printZpl(zpl: String){
+    export async function printZpl(zpl: String){
       return BixolonPrinter.printZpl(zpl);
     }

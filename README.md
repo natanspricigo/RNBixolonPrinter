@@ -4,16 +4,46 @@ Modulo de impressão bixolon
 
 ```sh
 npm install react-native-bixolon-printer
+
+```
+ou 
+
+```sh
+yarn add react-native-bixolon-printer
+
 ```
 
 ## Usage
 
 ```js
-import { multiply } from "react-native-bixolon-printer";
+import {findDevices} from 'react-native-bixolon-printer';
 
 // ...
 
-const result = await multiply(3, 7);
+    let dispositivos = await findDevices();
+    setResult(dispositivos);
+
+```
+
+```js
+import {conectar,configure} from 'react-native-bixolon-printer';
+
+// ...
+
+await conectar(e.macAddress);
+
+await configure(1850,840); // opcional
+
+```
+
+
+```js
+import {printZpl} from 'react-native-bixolon-printer';
+
+// ...
+
+await printZpl(`^XA.......^XZ`)
+
 ```
 
 ## Contributing

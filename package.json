@@ -37,13 +37,13 @@
     "Bixolon",
     "printers"
   ],
-  "repository": "https://github.com/natanspricigo/react-native-bixolon-printer",
+  "repository": "https://github.com/natanspricigo/RNBixolonPrinter",
   "author": "Natan <natanspricigo@gmail.com> (https://github.com/natanspricigo)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/natanspricigo/react-native-bixolon-printer/issues"
+    "url": "https://github.com/natanspricigo/RNBixolonPrinter/issues"
   },
-  "homepage": "https://github.com/natanspricigo/react-native-bixolon-printer#readme",
+  "homepage": "https://github.com/natanspricigo/RNBixolonPrinter#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

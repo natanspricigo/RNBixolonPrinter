@@ -1,7 +1,21 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text, Button, TouchableOpacity, PermissionsAndroid } from 'react-native';
-import {findDevices, conectar, configure, prinZpl, printZpl} from 'react-native-bixolon-printer';
+import { 
+  StyleSheet, 
+  View, 
+  Text, 
+  Button, 
+  TouchableOpacity, 
+  PermissionsAndroid 
+} from 'react-native';
+
+import {
+  findDevices, 
+  conectar, 
+  configure, 
+  printZpl
+} from 'react-native-bixolon-printer';
+
 type BluetoothDevice = {
   macAddress: string;
   portName: string;
@@ -9,7 +23,7 @@ type BluetoothDevice = {
 };
 
 export default function App() {
-  const [result, setResult] = React.useState<any>([]);
+  const [result, setResult] = React.useState<BluetoothDevice[]>([]);
   const [err, setErr] = React.useState<String>("");
 
   React.useEffect(() => {
@@ -31,13 +45,12 @@ export default function App() {
   };
    
   async function find() {
-    findDevices().then((data: any)=>{
-        setResult(data);
-        console.log(data);
-    }).catch((error: String)=>{
-        setErr(error.toString());
-    });
-  
+    try{
+      let dispositivos = await findDevices();
+      setResult(dispositivos);
+    } catch(err:any){
+      setErr(err);
+    }
   }
   
   return (
@@ -118,10 +131,9 @@ export default function App() {
         <View>
           {result.map((e:any,i:any)=>{
             return <View style={{marginTop:10}}>
-              <TouchableOpacity key={i} onPress={()=>{
-                conectar(e.macAddress).then(()=>{
-                configure(1850,840);
-                });
+              <TouchableOpacity key={i} onPress={async ()=>{
+                await conectar(e.macAddress);
+                await configure(1850,840);
               }}>
                 <Text>{'-'} {e.portName} - {e.macAddress}</Text>
               </TouchableOpacity>
