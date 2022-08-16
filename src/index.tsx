@@ -23,10 +23,18 @@ export async function findDevices() {
 export async function conectar(address: String) {
   return BixolonPrinter.conectar(address);
 }
-
+export async function desconectar() {
+  return BixolonPrinter.desconectar();
+}
 export async function configure(length: Number, width: Number) {
   return BixolonPrinter.configure(length, width);
 }
 export async function printZpl(zpl: String) {
   return BixolonPrinter.printZpl(zpl);
+}
+export async function printInformationDevice() {
+  return BixolonPrinter.printInformation();
+}
+export async function isConected() {
+  return BixolonPrinter.isConected();
 }

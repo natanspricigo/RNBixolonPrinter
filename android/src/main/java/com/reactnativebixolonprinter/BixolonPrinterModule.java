@@ -30,8 +30,8 @@ public class BixolonPrinterModule extends ReactContextBaseJavaModule {
     private static final String PORT_NAME = "portName";
     private static final String MAC_ADDRESS = "macAddress";
     private static final String MODULE_NAME = "moduleName";
-    BixolonLabelPrinter bixolonLabelPrinter;
-    HandlerPrinter handler;
+    private BixolonLabelPrinter bixolonLabelPrinter;
+    private HandlerPrinter handler;
 
     public BixolonPrinterModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -94,6 +94,16 @@ public class BixolonPrinterModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void desconectar(final Promise promise) {
+    try{
+      bixolonLabelPrinter.disconnect();
+      promise.resolve("OK");
+    }catch (Exception e){
+      promise.resolve("ERROR: " + e.getMessage());
+    }
+  }
+
+  @ReactMethod
   public void configure(int length, int width, final Promise promise) {
     try{
       if (bixolonLabelPrinter == null) {
@@ -121,6 +131,16 @@ public class BixolonPrinterModule extends ReactContextBaseJavaModule {
     }
     promise.resolve("OK");
   }
+
+  @ReactMethod
+  public void isConected(final Promise promise) {
+    try{
+      promise.resolve(bixolonLabelPrinter.isConnected());
+    }catch (Exception e){
+      promise.resolve("ERROR: " + e.getMessage());
+    }
+  }
+
   @ReactMethod
   public void printZpl(String zpl, final Promise promise) {
     try{
