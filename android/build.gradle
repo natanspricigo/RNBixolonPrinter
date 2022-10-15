@@ -50,6 +50,8 @@ android {
     sourceCompatibility BixolonPrinter_kotlinVersion
     targetCompatibility BixolonPrinter_kotlinVersion
   }
+  ndkVersion '21.4.7075529'
+  buildToolsVersion '30.0.3'
 }
 
 repositories {
