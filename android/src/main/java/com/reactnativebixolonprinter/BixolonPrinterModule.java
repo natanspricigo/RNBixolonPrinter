@@ -135,6 +135,9 @@ public class BixolonPrinterModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void isConected(final Promise promise) {
     try{
+      if(bixolonLabelPrinter == null){
+        promise.resolve(false);
+      }
       promise.resolve(bixolonLabelPrinter.isConnected());
     }catch (Exception e){
       promise.resolve("ERROR: " + e.getMessage());
